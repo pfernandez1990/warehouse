@@ -12,7 +12,7 @@ using WarehouseApi.Models;
 
 namespace WarehouseApi.Controllers
 {
-    [Route("[api/controller]")]
+    [Route("api/[controller]")]
     public class ProductController : Controller
     {
         private readonly ILogger<ProductController> _logger;
@@ -43,7 +43,7 @@ namespace WarehouseApi.Controllers
         #endregion
 
         #region Endpoint para obtener un producto dado el id
-        [HttpGet("/GetProductById/[productId]")]
+        [HttpGet("/GetProductById/{productId}")]
         [ProducesResponseType(200, Type = typeof(Product))]
         [ProducesResponseType(400)]
         public IActionResult GEtProductById(int productId) {
