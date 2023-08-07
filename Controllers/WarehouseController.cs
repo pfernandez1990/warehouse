@@ -34,10 +34,9 @@ namespace WarehouseApi.Controllers
        public IActionResult GetWarehouses() {
         var warehouses = _mapper.Map<List<WarehouseDto>>(_warehouseRepository.GetWarehouses());
 
-        if (!ModelState.IsValid)
-        {
+        if (!ModelState.IsValid) {
             return BadRequest(ModelState);
-        }
+        }       
 
         return Ok(warehouses);
 

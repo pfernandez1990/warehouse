@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Grzy1EdyW4mAzL/46/piIBED7+2+DXBJ/8wkBXXJBqv4w9WeZvTEaKEIsZZ+QgPh3xL+V+rRbQ77KXe175R+tA==",
+  "dgSpecHash": "dsP8KwbOC3J/WkexvuewPF+NC29FFxOdTrnU16aslerqgvBcyJcmKQOjLtKhiIeTfoHmccZdsjhZxka+x4Q7XQ==",
   "success": true,
-  "projectFilePath": "d:\\Projects\\WarehouseApi\\WarehouseApi.csproj",
+  "projectFilePath": "D:\\Projects\\WarehouseApi\\WarehouseApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Pablo\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Pablo\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

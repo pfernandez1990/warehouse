@@ -14,6 +14,8 @@ namespace WarehouseApi.Helper
         {
             CreateMap<Warehouse, WarehouseDto>();
             CreateMap<CreateWarehouseDto, Warehouse>();
+            CreateMap<Product, ProductDto>();
+            CreateMap<CreateProductDto, Product>();
             CreateMap<Inventory, InventoryDto>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
                 .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
