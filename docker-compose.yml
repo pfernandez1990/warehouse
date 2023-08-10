@@ -1,16 +1,31 @@
 version: "3.9"  # optional since v1.27.0
-services:
-  web_api:
-    image: api_web
-    container_name: api_web_application
-    ports:
-      - "5000:80"
-      - "5001:443"
+services:  
   sql:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     container_name: sql_server2022
     ports: # not actually needed, because the two services are on the same network
       - "1433:1433" 
+    volumes: 
+      - sqlservervolume1:/var/opt/mssql
     environment:
       - ACCEPT_EULA=y
       - SA_PASSWORD=A&VeryComplex123Password
+    networks:
+      - net1      
+  
+  web_api:
+    image: web_api
+    container_name: api_web_application
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      - ConnectionStrings__WarehouseDB=Server=sql_server2022;Database=WarehouseDB;User Id=SA;Password=A&VeryComplex123Password;MultipleActiveResultSets=true
+    networks:
+      - net1
+       
+volumes:
+  sqlservervolume1:
+
+networks:
+  net1: 

@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 /* Agregando mapper */
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -19,6 +20,10 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+/* Variables de entorno */
+// var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+// var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+// var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
 /* Agregando el DbContext */
 builder.Services.AddDbContext<WarehouseContext>(Options => {
     Options.UseSqlServer(builder.Configuration.GetConnectionString("WarehouseDB"));
