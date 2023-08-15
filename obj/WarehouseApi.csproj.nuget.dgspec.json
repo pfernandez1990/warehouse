@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Projects\\WarehouseApi\\WarehouseApi.csproj": {}
+    "D:\\Projects\\WarehouseApi\\WarehouseApi.csproj": {}
   },
   "projects": {
-    "d:\\Projects\\WarehouseApi\\WarehouseApi.csproj": {
+    "D:\\Projects\\WarehouseApi\\WarehouseApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Projects\\WarehouseApi\\WarehouseApi.csproj",
+        "projectUniqueName": "D:\\Projects\\WarehouseApi\\WarehouseApi.csproj",
         "projectName": "WarehouseApi",
-        "projectPath": "d:\\Projects\\WarehouseApi\\WarehouseApi.csproj",
+        "projectPath": "D:\\Projects\\WarehouseApi\\WarehouseApi.csproj",
         "packagesPath": "C:\\Users\\Pablo\\.nuget\\packages\\",
-        "outputPath": "d:\\Projects\\WarehouseApi\\obj\\",
+        "outputPath": "D:\\Projects\\WarehouseApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Pablo\\AppData\\Roaming\\NuGet\\NuGet.Config",

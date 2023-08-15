@@ -22,6 +22,9 @@ namespace WarehouseApi.Interfaces
         bool Save();
         /* Obtener Inventario dado el id del almacen*/
         ICollection<Inventory> GetInventoryByWarehouseId (int warehouseId);
+        /* Agregar productos al inventario dado el producto y el almacen  */
+        bool AddProductToWarehouse ( Inventory inventory);
+        
 
     }
 }

@@ -61,5 +61,11 @@ namespace WarehouseApi.Repository
             return _context.Inventories.Include(i => i.Product).Where(i => i.WarehouseId == warehouseId).ToList();
         }
         
+        /* Agregar producto al inventario dado el warehouse y el producto */
+        public bool AddProductToWarehouse( Inventory inventory)
+        {                      
+            _context.Add(inventory);
+            return Save();
+        }
     }
 }

@@ -19,12 +19,14 @@ namespace WarehouseApi.Controllers
     {
         private readonly ILogger<WarehouseController> _logger;
         private readonly IWarehouseRepository _warehouseRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
 
-        public WarehouseController(ILogger<WarehouseController> logger, IWarehouseRepository warehouseRepository, IMapper mapper)
+        public WarehouseController(ILogger<WarehouseController> logger, IWarehouseRepository warehouseRepository, IProductRepository productRepository, IMapper mapper)
         {
             _logger = logger;
             _warehouseRepository = warehouseRepository;
+            _productRepository = productRepository;
             _mapper = mapper;
         }
 
@@ -131,5 +133,56 @@ namespace WarehouseApi.Controllers
         
        }
        #endregion
+
+       #region Endpoin para agregar productos al almacen
+       [HttpPost("/AddProductToWarehouse")]
+       [ProducesResponseType(204)]
+       [ProducesResponseType(400)]
+       public IActionResult AddProductToWarehouse ([FromQuery] int warehouseId, [FromQuery] int productId, [FromBody] InventoryDto inventoryDto){
+
+        /* Comprobando que los datos del nuevo producto no sean nulos */
+        if (inventoryDto == null)
+        {
+            return BadRequest(ModelState);            
+        }    
+       
+        /* Comprovando que sea valido el model estate */
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }       
+        var product = _productRepository.GetProductById(productId);
+        var warehouse = _warehouseRepository.GetWarehouseById(warehouseId);
+
+        var inventoryToAdd = new Inventory(){
+            WarehouseId = warehouseId,
+            ProductId = productId,
+            Warehouse = warehouse,
+            Product = product,
+            Quantity = inventoryDto.Quantity,
+            State = inventoryDto.State,
+        };
+
+        if (!_warehouseRepository.AddProductToWarehouse(inventoryToAdd))
+        {
+            ModelState.AddModelError("", "Somenthing went wrong.");
+            return StatusCode(500, ModelState);
+        }
+
+        return Ok("Product add");
+
+       }
+       #endregion
+
+       [HttpGet("/otro")]
+       [ProducesResponseType(204)]
+       [ProducesResponseType(400)]
+       public IActionResult Otro (){
+
+       
+
+        return Ok("Otro");
+
+       }
     }
 }
