@@ -173,16 +173,5 @@ namespace WarehouseApi.Controllers
 
        }
        #endregion
-
-       [HttpGet("/otro")]
-       [ProducesResponseType(204)]
-       [ProducesResponseType(400)]
-       public IActionResult Otro (){
-
-       
-
-        return Ok("Otro");
-
-       }
     }
 }
