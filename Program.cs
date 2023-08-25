@@ -3,8 +3,19 @@ using WarehouseApi.Data;
 using WarehouseApi.Interfaces;
 using WarehouseApi.Repository;
 
-var builder = WebApplication.CreateBuilder(args);
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
+var builder = WebApplication.CreateBuilder(args);
+/* Configurando CORS */
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(MyAllowSpecificOrigins, policy => {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+        }
+    );
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -42,9 +53,11 @@ app.UseSwaggerUI();
 // }
 
 app.UseHttpsRedirection();
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+

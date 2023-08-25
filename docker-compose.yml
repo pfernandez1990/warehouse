@@ -24,6 +24,21 @@ services:
     networks:
       - net1
        
+  # react:
+  #   container_name: clientapi    
+  #   environment:
+  #     - NODE_ENV=development
+  #   build: 
+  #     context: /clientapi/.
+  #     dockerfile: Dockerfile
+  #     target: development
+  #   volumes:
+  #     - /clientapi/.:/src   
+  #   ports:
+  #     - 3000:3000    
+  #   networks:
+  #     - net1
+
 volumes:
   sqlservervolume1:
 
