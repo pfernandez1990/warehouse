@@ -5,6 +5,8 @@ import axios from "axios";
 import "./styles.css";
 import http from "../../components/services/http";
 import { useFormik } from "formik";
+import { useSelector, useDispatch } from "react-redux";
+import { selectWarehouse, setWarehouse } from "../../store/warehouse";
 
 export const Home = () => {
   const data = [
@@ -37,8 +39,13 @@ export const Home = () => {
 };
 
 export const List = () => {
+  const warehouse = useSelector(selectWarehouse);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleClick = () => navigate("/OpWarehouseEast/Inventory");
+  const handleClick = (warehouse) => {
+    dispatch(setWarehouse(warehouse));
+    navigate("/OpWarehouseEast/Inventory");
+  };
   const url = "/api/warehouse";
   const [warehouses, setWarehouses] = useState([]);
   const [id, setId] = useState("");
@@ -65,7 +72,10 @@ export const List = () => {
     },
 
     onSubmit: (values) => {
-      http.post(url, values);
+      http
+        .post(url, values)
+        .then((res) => {})
+        .catch((error) => {});
       window.location.reload(false);
     },
   });
@@ -88,6 +98,7 @@ export const List = () => {
                   <th>Address</th>
                   <th>Email</th>
                   <th>Phone</th>
+                  <th>Go Invntory</th>
                 </tr>
               </thead>
               <tbody className="table-group-divider">
@@ -99,8 +110,11 @@ export const List = () => {
                     <td>{warehouse.email}</td>
                     <td>{warehouse.phone}</td>
                     <td>
-                      <a onClick={handleClick} class="btn btn-primary ">
-                        Go Inventory
+                      <a
+                        onClick={() => handleClick(warehouse)}
+                        class="btn btn-primary "
+                      >
+                        Inventory
                       </a>
                     </td>
                   </tr>
@@ -227,18 +241,19 @@ export const List = () => {
 };
 
 export const ShowInventory = () => {
+  const warehouse = useSelector(selectWarehouse);
   const navigate = useNavigate();
   const handleClick = () => navigate("/warehouses/list");
-  const url = "/GetInventoryByWarehouse/1";
+  const url = `/GetInventoryByWarehouse/${warehouse.id}`;
   const [inventory, setInventory] = useState([]);
-  const [id, setId] = useState("");
+  const [id, setId] = useState("/");
   const [productName, setProductName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [state, setState] = useState("");
 
   useEffect(() => {
     getInventory();
-  }, [inventory]);
+  }, []);
 
   const getInventory = async () => {
     const respuesta = await http.get(url);
@@ -277,8 +292,8 @@ export const ShowInventory = () => {
             </table>
           </div>
           <div className="col-2">
-            <a onClick={handleClick} class="btn btn-primary ">
-              Go Warehouses
+            <a onClick={() => handleClick()} class="btn btn-primary ">
+              Back to Warehouses
             </a>
           </div>
         </div>
