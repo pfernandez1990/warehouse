@@ -2,21 +2,17 @@ import "./App.css";
 import Sidebar from "./components/navigation/Sidebar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 /* Importando paginas de almacen */
-import {
-  Home,
-  List,
-  ShowInventory,
-} from "./components/pages/Warehouse/WarehouseIndex";
-import { AboutUs, OurAim, OurVision } from "./components/pages/AboutUs";
+import { Home, List, ShowInventory } from "./pages/Warehouse/WarehouseIndex";
+import { AboutUs, OurAim, OurVision } from "./pages/AboutUs";
 import {
   Services,
   ServicesOne,
   ServicesTwo,
   ServicesThree,
-} from "./components/pages/Services";
-import { Events, EventsOne, EventsTwo } from "./components/pages/Events";
-import Contact from "./components/pages/ContactUs";
-import Support from "./components/pages/Support";
+} from "./pages/Services";
+import { Events, EventsOne, EventsTwo } from "./pages/Events";
+import Contact from "./pages/ContactUs";
+import Support from "./pages/Support";
 
 function App() {
   return (

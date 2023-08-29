@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./styles.css";
+import http from "../../components/services/http";
+import { useFormik } from "formik";
 
 export const Home = () => {
   const data = [
@@ -37,7 +39,7 @@ export const Home = () => {
 export const List = () => {
   const navigate = useNavigate();
   const handleClick = () => navigate("/OpWarehouseEast/Inventory");
-  const url = "http://localhost:5000/api/warehouse";
+  const url = "/api/warehouse";
   const [warehouses, setWarehouses] = useState([]);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
@@ -47,12 +49,26 @@ export const List = () => {
 
   useEffect(() => {
     getWarehouses();
-  });
+  }, []);
 
   const getWarehouses = async () => {
     const respuesta = await axios.get(url);
     setWarehouses(respuesta.data);
   };
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      address: "",
+      email: "",
+      phone: "",
+    },
+
+    onSubmit: (values) => {
+      http.post(url, values);
+      window.location.reload(false);
+    },
+  });
 
   return (
     <div className="tablecontainer">
@@ -104,6 +120,108 @@ export const List = () => {
             </div>
         </div> */}
       </div>
+      {/* Button trigger modal */}
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        Add Warehouse
+      </button>
+
+      {/* Modal */}
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                New Warehouse
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form onSubmit={formik.handleSubmit}>
+                <div class="mb-3">
+                  <label class="form-label" htmlFor="name">
+                    Name
+                  </label>
+                  <input
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.name}
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" htmlFor="address">
+                    Address
+                  </label>
+                  <input
+                    class="form-control"
+                    id="address"
+                    name="address"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.address}
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" htmlFor="email">
+                    Email
+                  </label>
+                  <input
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
+                  />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" htmlFor="phone">
+                    Phone
+                  </label>
+                  <input
+                    class="form-control"
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.phone}
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -111,7 +229,7 @@ export const List = () => {
 export const ShowInventory = () => {
   const navigate = useNavigate();
   const handleClick = () => navigate("/warehouses/list");
-  const url = "http://localhost:5000/GetInventoryByWarehouse/1";
+  const url = "/GetInventoryByWarehouse/1";
   const [inventory, setInventory] = useState([]);
   const [id, setId] = useState("");
   const [productName, setProductName] = useState("");
@@ -120,10 +238,10 @@ export const ShowInventory = () => {
 
   useEffect(() => {
     getInventory();
-  });
+  }, [inventory]);
 
   const getInventory = async () => {
-    const respuesta = await axios.get(url);
+    const respuesta = await http.get(url);
     setInventory(respuesta.data);
   };
 
