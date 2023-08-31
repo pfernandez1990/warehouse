@@ -342,7 +342,7 @@ export const AddProductsToWarehouse = () => {
   const productToAdd = useSelector(selectAddProduct);
 
   const url = "/api/Product";
-  const postUrl = `/AddProductToWarehouse/${productToAdd.warehouseId}/${productToAdd.productId}`;
+  const postUrl = "/AddProductToWarehouse/";
 
   useEffect(() => {
     getProducts();
@@ -357,11 +357,13 @@ export const AddProductsToWarehouse = () => {
     dispatch(setProductId(product.id));
   };
 
-  const enviarData = () => {
+  const enviarData = (values) => {
     let data = {
+      warehouseId: productToAdd.warehouseId,
+      productId: productToAdd.productId,
       productName: "",
-      quantity: productToAdd.quantity,
-      state: productToAdd.state,
+      quantity: values.quantity,
+      state: values.state,
     };
     http
       .post(postUrl, data)
@@ -378,7 +380,7 @@ export const AddProductsToWarehouse = () => {
     onSubmit: (values) => {
       dispatch(setQuantity(values.quantity));
       dispatch(setState(values.state));
-      enviarData();
+      enviarData(values);
     },
   });
 
