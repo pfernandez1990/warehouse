@@ -134,14 +134,14 @@ namespace WarehouseApi.Controllers
        }
        #endregion
 
-       #region Endpoin para agregar productos al almacen
+       #region Endpoint para agregar productos al almacen
        [HttpPost("/AddProductToWarehouse")]
        [ProducesResponseType(204)]
        [ProducesResponseType(400)]
-       public IActionResult AddProductToWarehouse ([FromQuery] int warehouseId, [FromQuery] int productId, [FromBody] InventoryDto inventoryDto){
+       public IActionResult AddProductToWarehouse ([FromBody] InventoryAddDto inventoryAddDto){
 
         /* Comprobando que los datos del nuevo producto no sean nulos */
-        if (inventoryDto == null)
+        if (inventoryAddDto == null)
         {
             return BadRequest(ModelState);            
         }    
@@ -151,16 +151,16 @@ namespace WarehouseApi.Controllers
         {
             return BadRequest(ModelState);
         }       
-        var product = _productRepository.GetProductById(productId);
-        var warehouse = _warehouseRepository.GetWarehouseById(warehouseId);
+        var product = _productRepository.GetProductById(inventoryAddDto.ProductId);
+        var warehouse = _warehouseRepository.GetWarehouseById(inventoryAddDto.WarehouseId);
 
         var inventoryToAdd = new Inventory(){
-            WarehouseId = warehouseId,
-            ProductId = productId,
+            WarehouseId = inventoryAddDto.WarehouseId,
+            ProductId = inventoryAddDto.ProductId,
             Warehouse = warehouse,
             Product = product,
-            Quantity = inventoryDto.Quantity,
-            State = inventoryDto.State,
+            Quantity = inventoryAddDto.Quantity,
+            State = inventoryAddDto.State,
         };
 
         if (!_warehouseRepository.AddProductToWarehouse(inventoryToAdd))

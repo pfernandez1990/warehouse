@@ -5,7 +5,10 @@ import "./styles.css";
 import http from "../../components/services/http";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
-import { selectWarehouse, setWarehouse } from "../../store/warehouse";
+import warehouse, {
+  selectWarehouse,
+  setWarehouse,
+} from "../../store/warehouse";
 import {
   selectAddProduct,
   setProductId,
@@ -339,6 +342,7 @@ export const AddProductsToWarehouse = () => {
   const productToAdd = useSelector(selectAddProduct);
 
   const url = "/api/Product";
+  const postUrl = `/AddProductToWarehouse/${productToAdd.warehouseId}/${productToAdd.productId}`;
 
   useEffect(() => {
     getProducts();
@@ -354,8 +358,13 @@ export const AddProductsToWarehouse = () => {
   };
 
   const enviarData = () => {
+    let data = {
+      productName: "",
+      quantity: productToAdd.quantity,
+      state: productToAdd.state,
+    };
     http
-      .post(url, productToAdd)
+      .post(postUrl, data)
       .then((res) => {})
       .catch((error) => {});
   };
