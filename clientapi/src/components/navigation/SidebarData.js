@@ -26,16 +26,6 @@ export const SidebarData = [
     title: "Products",
     path: "/products",
     icon: <FaIcons.FaWarehouse />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-
-    subNav: [
-      {
-        title: "Product List",
-        path: "/products/list",
-        icon: <FaIcons.FaList />,
-      },
-    ],
   },
   {
     title: "About Us",

@@ -2,7 +2,14 @@ import "./App.css";
 import Sidebar from "./components/navigation/Sidebar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 /* Importando paginas de almacen */
-import { Home, List, ShowInventory } from "./pages/Warehouse/WarehouseIndex";
+import {
+  Home,
+  List,
+  ShowInventory,
+  AddProductsToWarehouse,
+} from "./pages/Warehouse/WarehouseIndex";
+/* Importando paginas de productos */
+import { ProductList } from "./pages/Product/ProductIndex";
 import { AboutUs, OurAim, OurVision } from "./pages/AboutUs";
 import {
   Services,
@@ -22,6 +29,13 @@ function App() {
         {/* Alamacenes */}
         <Route path="/warehouses" element={<Home />} />
         <Route path="/warehouses/list" element={<List />} />
+        <Route path="/Warehouse/Inventory" element={<ShowInventory />} />
+        <Route
+          path="/Warehouse/Inventory/AddProducts"
+          element={<AddProductsToWarehouse />}
+        />
+        {/* Productos */}
+        <Route path="/Products" element={<ProductList />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/about-us/aim" element={<OurAim />} />
         <Route path="/about-us/vision" element={<OurVision />} />
@@ -34,7 +48,6 @@ function App() {
         <Route path="/events/events1" element={<EventsOne />} />
         <Route path="/events/events2" element={<EventsTwo />} />
         <Route path="/support" element={<Support />} />
-        <Route path="/OpWarehouseEast/Inventory" element={<ShowInventory />} />
       </Routes>
     </Router>
   );
